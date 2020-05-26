@@ -19,7 +19,7 @@ class App extends Component {
   componentDidMount = () => {
     fetch(`${API_ROOT}/conversations`)
     .then(res => res.json())
-    .then(convos => this.setState({convos}))
+    .then(json => this.setState({conversations: json}))
   }
 
   handleClick = id => {
@@ -47,7 +47,7 @@ class App extends Component {
           {this.state.conversations.length ? (
             <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
           ): null}
-          <ConversationsContainer conversations={conversations} />
+          <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
         </div>
       );
   }

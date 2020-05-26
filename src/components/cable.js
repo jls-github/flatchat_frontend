@@ -12,4 +12,4 @@ const Cable = ({conversations, handleReceivedMessage}) => {
         </Fragment>
     )
 }
-export default Cable
+export default Cable;

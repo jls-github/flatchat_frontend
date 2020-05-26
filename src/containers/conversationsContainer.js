@@ -1,14 +1,15 @@
 import React from 'react';
 
-const populateConversations = (conversations) => {
+const populateConversations = (conversations, handleClick) => {
     return conversations.map( conversation => {
-        return <li>{conversation.title}</li>
+        return <li key={conversation.id} onClick={handleClick}>{conversation.title}</li>
     })
 }
 
 const ConversationsContainer = (props) => {
 
     const conversations = props.conversations
+    const handleClick = props.handleClick
 
     return (
         <div>

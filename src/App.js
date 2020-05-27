@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import ConversationsContainer from './containers/conversationsContainer'
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import MessageContainer from './containers/MessageContainer';
 import Cable from './components/cable';
 import { API_ROOT, HEADERS } from './constraints/index'
+
+const actioncable = require("actioncable")
+
 
 
 class App extends Component {
@@ -32,21 +35,29 @@ class App extends Component {
   }
 
   handleReceivedMessage = res => {
-    const {msg} = res
-    const conversations = [...this.state.conversations]
-    const convo = conversations.find(convo => convo.id === msg.conversation_id)
-    convo.messages = [...convo.messages, msg]
-    this.setState({conversations})
+    console.log("Here I am", res)
+    const {message} = res
+    this.setState(prevState => {
+      const conversations = [...prevState.conversations]
+      const convo = conversations.find(convo => convo.id === message.conversation_id)
+      convo.messages = [...convo.messages, message]
+      this.setState({conversations})
+    })
   }
 
   onAddMessage = (message) => {
-    fetch("http://localhost:3000", {
+    fetch("http://localhost:3000/messages", {
       method: "POST",
-      HEADERS,
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json"
+      },
       body: JSON.stringify({
-        message: message,
-        conversation: this.state.activeConversation.id,
-        user: 1 //hard coded - change with auth
+        message: {
+          text: message,
+          conversation_id: this.state.activeConversation.id,
+          user_id: 13
+         } //hard coded - change with auth
       })
     })
   }
@@ -56,7 +67,10 @@ class App extends Component {
     return (
         <div>
 
-          <ActionCable channel={{channel: 'ConversationsChannel'}} onReceived={this.handleReceivedConversation} />
+          <ActionCableConsumer 
+            channel={{channel: 'ConversationsChannel'}} 
+            onReceived={this.handleReceivedConversation} 
+          />
           {this.state.conversations.length ? (
             <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
           ): null}

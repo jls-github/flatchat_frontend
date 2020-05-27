@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ConversationsContainer from './containers/conversationsContainer'
+import ConversationsContainer from './containers/ConversationsContainer'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import MessageContainer from './containers/MessageContainer';
-import Cable from './components/cable';
+import Cable from './components/Cable';
 import { API_ROOT, HEADERS } from './constraints/index'
 
 const actioncable = require("actioncable")

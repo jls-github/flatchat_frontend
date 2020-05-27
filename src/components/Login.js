@@ -15,7 +15,22 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        //make fetch request to server to authenticate
+        fetch('http://localhost:3000/login', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                
+                user: {
+                    username: username,
+                    password: password
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(json => localStorage.setItem("token", json.jwt))
     }
 
     return (
@@ -32,6 +47,7 @@ const Login = () => {
                     onChange={e => handlePasswordChange(e)} 
                     placeholder="Password"
                 />
+                <button type="submit">Log in</button>
             </form>
         </div>
     )

@@ -1,8 +1,9 @@
 import React from 'react';
+import Conversation from '../components/conversation.js'
 
 const populateConversations = (conversations, handleClick) => {
     return conversations.map( conversation => {
-        return <li key={conversation.id} onClick={handleClick}>{conversation.title}</li>
+        return <Conversation key={conversation.id} handleClick={handleClick} conversation={conversation} />
     })
 }
 
@@ -17,7 +18,7 @@ const ConversationsContainer = (props) => {
                 <div>
                     <h3>All Conversations</h3>
                     <ul>
-                        {populateConversations(conversations)}
+                        {populateConversations(conversations, handleClick)}
                     </ul>
                 </div>
             :

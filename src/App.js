@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ConversationsContainer from './containers/conversationsContainer'
 import { ActionCable } from 'react-actioncable-provider';
-import MessageContainer from './containers/messageContainer';
+import MessageContainer from './containers/MessageContainer';
 import Cable from './components/cable';
-import { API_ROOT } from './constraints/index'
+import { API_ROOT, HEADERS } from './constraints/index'
 
 
 class App extends Component {
@@ -22,8 +22,8 @@ class App extends Component {
     .then(json => this.setState({conversations: json}))
   }
 
-  handleClick = id => {
-    this.setState({activeConversation: id})
+  handleClick = activeConversation => {
+    this.setState({activeConversation: activeConversation})
   }
 
   handleReceivedConversation = res => {
@@ -39,15 +39,33 @@ class App extends Component {
     this.setState({conversations})
   }
 
+  onAddMessage = (message) => {
+    fetch("http://localhost:3000", {
+      method: "POST",
+      HEADERS,
+      body: JSON.stringify({
+        message: message,
+        conversation: this.state.activeConversation.id,
+        user: 1 //hard coded - change with auth
+      })
+    })
+  }
+
   render() {
-    const {conversations} = this.state
+    const {conversations, activeConversation} = this.state
     return (
         <div>
+
           <ActionCable channel={{channel: 'ConversationsChannel'}} onReceived={this.handleReceivedConversation} />
           {this.state.conversations.length ? (
             <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
           ): null}
+
           <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
+
+          {activeConversation ?
+            <MessageContainer activeConversation={activeConversation} onAddMessage={this.onAddMessage} />
+          : null}
         </div>
       );
   }

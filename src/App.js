@@ -5,6 +5,9 @@ import MessageContainer from './containers/MessageContainer';
 import Cable from './components/cable';
 import { API_ROOT, HEADERS } from './constraints/index'
 
+const actioncable = require("actioncable")
+
+
 
 class App extends Component {
 

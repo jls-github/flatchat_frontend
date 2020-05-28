@@ -3,9 +3,9 @@ import Message from '../components/Message'
 import MessageForm from '../components/MessageForm'
 import ParticipantsContainer from './ParticipantsContainer'
 
-const populateMessages = messages => {
+const populateMessages = (messages, users) => {
     return messages.map(message => {
-        return <Message key={message.id} message={message} />
+        return <Message key={message.id} message={message} user={users.find(user => user.id === message.user_id)}/>
     })
 }
 
@@ -17,7 +17,7 @@ const MessageContainer = (props) => {
         <div>
             <h1>{title}</h1>
             <h3>{description}</h3>
-            {populateMessages(messages)}
+            {populateMessages(messages, users)}
             <MessageForm onAddMessage={props.onAddMessage} />
             <ParticipantsContainer users={users} />
         </div>

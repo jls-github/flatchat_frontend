@@ -2,11 +2,11 @@ import React from 'react'
 
 const Message = (props) => {
 
-    const {message} = props
-
+    const {message, user} = props
     return(
         <div>
-            {message.text}
+            <p>{user.username}:&nbsp;{message.text} &nbsp; &nbsp; at &nbsp;
+            {Date(message.created_at)}</p>
         </div>
     )
 }

@@ -53,6 +53,7 @@ const Login = () => {
                     placeholder="Username"
                 />
                 <input
+                    type="password"
                     value={password}
                     onChange={e => handlePasswordChange(e)} 
                     placeholder="Password"

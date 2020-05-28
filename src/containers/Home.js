@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import ConversationsContainer from '../containers/conversationsContainer'
-import MessageContainer from '../containers/MessageContainer';
-import Cable from '../components/cable';
+import MessageContainer from './messageContainer';
+// import Cable from '../components/cable';
 import AuthWrapper from '../HOCs/AuthWrapper'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from '../constraints/index'
@@ -57,6 +57,17 @@ class Home extends Component {
         this.setState({activeConversation: activeConversation})
 
 
+      }
+
+      handleDelete = conversation => {
+        // setState to remove conversation
+        // fetch DELETE to '/conversations'
+        fetch(API_ROOT + '/conversations', {
+          method: 'DELETE',
+          HEADERS,
+          body: JSON.stringify(conversation)
+        }).then(res => res.json())
+        .then(json => console.log(json))
       }
 
       // componentDidUpdate() {

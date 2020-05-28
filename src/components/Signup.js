@@ -1,45 +1,98 @@
-import React, {useState} from 'react';import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
+import {useHistory} from 'react-router-dom'
 
 const Signup = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    const history = useHistory()
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
     }
+    const handleFirstNameChange = (e) => {
+        setFirstName(e.target.value)
+    }
+
+    const handleLastNameChange = (e) => {
+        setLastName(e.target.value)
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+    }
 
     const handlePasswordConfirmationChange = (e) => {
-        setPassword(e.target.value)
+        setPasswordConfirmation(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        //make fetch request to server to authenticate
+        fetch('http://localhost:3000/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    username: username,
+                    first_name: firstName,
+                    last_name: lastName,
+                    password: password,
+                    password_confirmation: passwordConfirmation
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(json => {
+            localStorage.setItem("token", json.jwt)
+            setIsLoggedIn(true)
+        })
     }
 
     return (
-        <div>
-            <h1>Sign up!</h1>
-            <form onSubmit={e => handleSubmit(e)}>
-                <input
-                    value={username}
-                    onChange={e => handleUsernameChange(e)} 
-                    placeholder="Username"
-                />
-                <input
-                    value={password}
-                    onChange={e => handlePasswordChange(e)} 
-                    placeholder="Password"
-                />
-                <input
-                    value={passwordConfirmation}
-                    onChange={e => handlePasswordConfirmationChange(e)} 
-                    placeholder="Password"
-                />
-            </form>
-        </div>
+        <Fragment>
+            {isLoggedIn ? 
+            history.push('/home')
+            :
+            <div>
+                <h1>Sign up!</h1>
+                <form onSubmit={e => handleSubmit(e)}>
+                    <input
+                        value={username}
+                        onChange={e => handleUsernameChange(e)} 
+                        placeholder="Username"
+                    />
+                    <input
+                        value={firstName}
+                        onChange={e => handleFirstNameChange(e)} 
+                        placeholder="First Name"
+                    />
+                    <input
+                        value={lastName}
+                        onChange={e => handleLastNameChange(e)} 
+                        placeholder="Last Name"
+                    />
+                    <input
+                        value={password}
+                        onChange={e => handlePasswordChange(e)} 
+                        placeholder="Password"
+                    />
+                    <input
+                        value={passwordConfirmation}
+                        onChange={e => handlePasswordConfirmationChange(e)} 
+                        placeholder="Password"
+                    />
+                    <button type="submit">Sign Up!</button>
+                </form>
+            </div>}
+        </Fragment>
     )
 }
 

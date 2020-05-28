@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory, NavLink} from 'react-router-dom'
 
 const Login = () => {
 
@@ -59,6 +59,7 @@ const Login = () => {
                 />
                 <button type="submit">Log in</button>
             </form>
+            <NavLink to="/signup">Sign Up</NavLink>
         </div>}
         </Fragment>
     )

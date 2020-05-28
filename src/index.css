@@ -116,3 +116,24 @@ code {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.no_conversations {
+  margin-top: 50px;
+  display: inline-block;
+  font-size: large;
+  font-weight: bold;
+}
+
+.conversation_li {
+  margin-left: 15px;
+  font-size: large;
+}
+
+.conversation_li:hover {
+  color: darkgray;
+  cursor: pointer;
+}
+
+.conversation_header {
+  margin-left: 5px;
+}

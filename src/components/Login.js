@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
+import {useHistory} from 'react-router-dom'
 
 const Login = () => {
 
+    const history = useHistory()
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [loggedIn, setLoggedIn] = useState(false)
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -30,10 +34,16 @@ const Login = () => {
             })
         })
         .then(res => res.json())
-        .then(json => localStorage.setItem("token", json.jwt))
+        .then(json => {
+            localStorage.setItem("token", json.jwt)
+            setLoggedIn(true)})
     }
 
     return (
+        <Fragment>
+        {loggedIn ? 
+            history.push('/home')
+            :
         <div>
             <h1>Log in!</h1>
             <form onSubmit={e => handleSubmit(e)}>
@@ -49,7 +59,8 @@ const Login = () => {
                 />
                 <button type="submit">Log in</button>
             </form>
-        </div>
+        </div>}
+        </Fragment>
     )
 }
 

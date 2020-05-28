@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ConversationsContainer from '../containers/conversationsContainer'
 import MessageContainer from '../containers/MessageContainer';
 import Cable from '../components/cable';
@@ -24,16 +24,24 @@ class Home extends Component {
         })
         .then(res => res.json())
         .then(json => this.setState({conversations: json}))
-      }
+        .then(json => {
+          this.state.conversations.map(convo=> {
+            return (
+                <ActionCableConsumer 
+                    key={convo.id}
+                    channel={{channel: 'MessagesChannel', conversation: convo.id}} 
+                    onReceived={this.handleReceivedMessage}
+                />
+            )})})}
     
       handleClick = activeConversation => {
         this.setState({activeConversation: activeConversation})
       }
     
-      handleReceivedConversation = res => {
-        const { conversation } = res
-        this.setState({conversations: [...this.state.conversations, conversation]})
-      }
+      // handleReceivedConversation = res => {
+      //   const { conversation } = res
+      //   this.setState({conversations: [...this.state.conversations, conversation]})
+      // }
     
       handleReceivedMessage = res => {
         console.log("Here I am", res)
@@ -41,8 +49,16 @@ class Home extends Component {
         this.setState(prevState => {
           const conversations = [...prevState.conversations]
           const convo = conversations.find(convo => convo.id === message.conversation_id)
-          convo.messages = [...convo.messages, message]
-          this.setState({conversations})
+          let messageFound = false
+          convo.messages.forEach(msg => {
+            if (message.id === msg.id) {
+              messageFound = true
+            }
+          })
+          if (!messageFound){
+            convo.messages = [...convo.messages, message]
+            this.setState({conversations})
+          }
         })
       }
     
@@ -51,13 +67,13 @@ class Home extends Component {
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            Accept: "application/json"
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
           },
           body: JSON.stringify({
             message: {
               text: message,
-              conversation_id: this.state.activeConversation.id,
-              user_id: 13
+              conversation_id: this.state.activeConversation.id
              } //hard coded - change with auth
           })
         })
@@ -65,21 +81,19 @@ class Home extends Component {
       render() {
           const {conversations, activeConversation} = this.state
         return(
-            <fragment>
+            <Fragment>
     
-                <ActionCableConsumer 
+                {/* <ActionCableConsumer 
                     channel={{channel: 'ConversationsChannel'}} 
                     onReceived={this.handleReceivedConversation} 
-                  />
-                  {this.state.conversations.length ? (
-                    <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
-                  ): null}
+                  /> */}
+                  <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
     
                 <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
                 {activeConversation ?
                     <MessageContainer activeConversation={activeConversation} onAddMessage={this.onAddMessage} />
                 : null}
-            </fragment>
+            </Fragment>
         )
       }
     

@@ -20,9 +20,9 @@ const Message = (props) => {
 
     const {message, user} = props
     return(
-        <div>
-            <p>{user.username}:&nbsp;{message.text} &nbsp; &nbsp; at &nbsp;
-            {formatMessageDate(Date(message.created_at))}</p>
+        <div className="message">
+            <p>{user.username}</p>
+            <p>{message.text}</p>
         </div>
     )
 }

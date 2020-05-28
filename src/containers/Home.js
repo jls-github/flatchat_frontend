@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ConversationsContainer from '../containers/conversationsContainer'
 import MessageContainer from '../containers/MessageContainer';
 import Cable from '../components/cable';
+import AuthWrapper from '../HOCs/AuthWrapper'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from '../constraints/index'
 
@@ -16,7 +17,11 @@ class Home extends Component {
       }
     
       componentDidMount = () => {
-        fetch(`${API_ROOT}/conversations`)
+        fetch(`${API_ROOT}/conversations`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
         .then(res => res.json())
         .then(json => this.setState({conversations: json}))
       }
@@ -80,4 +85,4 @@ class Home extends Component {
     
 }
 
-export default Home
+export default AuthWrapper(Home)

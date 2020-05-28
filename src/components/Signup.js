@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 const Signup = () => {
 
@@ -69,7 +69,8 @@ const Signup = () => {
             :
             <div className="login_container">
                 <div className="login">
-                <h1>Sign up!</h1>
+                <h2 className="cardHeader">Flatchat</h2>
+                <h4 className="cardHeader">Sign up</h4>
                 <form onSubmit={e => handleSubmit(e)}>
                     <input
                         value={username}
@@ -98,6 +99,7 @@ const Signup = () => {
                     />
                     <button type="submit" className="button">Sign Up!</button>
                 </form>
+                <Link to="/login"><button className="button">Log In</button></Link>
             </div>
             </div>}
         </Fragment>

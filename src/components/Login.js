@@ -52,7 +52,8 @@ const Login = () => {
             :
         <div className="login_container">
             <div className="login">
-                <h1>Log in!</h1>
+                <h2 className="cardHeader">Flatchat</h2>
+                <h4 className="cardHeader">Log in</h4>
                 <form onSubmit={e => handleSubmit(e)}>
                     <input
                         value={username}

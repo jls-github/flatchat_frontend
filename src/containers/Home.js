@@ -5,6 +5,7 @@ import MessageContainer from './messageContainer';
 import AuthWrapper from '../HOCs/AuthWrapper'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from '../constraints/index'
+import NavBar from './navBar'
 
 const actioncable = require("actioncable")
 
@@ -145,10 +146,13 @@ class Home extends Component {
           const {conversations, activeConversation, error} = this.state
         return(
             <Fragment>
+                <NavBar 
+                  conversations={conversations} 
+                  handleClick={this.handleClick}
+                  onLogout={this.logout}
+                />
               {error ? this.props.history.push('/login') : null}
-    
-                <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
-                {activeConversation ?
+                    {activeConversation ?
                     <MessageContainer activeConversation={activeConversation} onAddMessage={this.onAddMessage} />
                 : null}
             </Fragment>

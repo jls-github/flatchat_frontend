@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.messageContainer {
+  margin: 20px;
+
+}
+
+.message {
+  border: solid;
+  border-width: thin;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: lightblue
+}

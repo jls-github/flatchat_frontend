@@ -16,8 +16,8 @@ const MessageForm = (props) => {
 
     return (
         <form onSubmit={e => handleSubmit(e)}>
-            <input onChange={e => handleChange(e)} value={message} ></input>
-            <button type="submit" />
+            <input onChange={e => handleChange(e)} value={message} placeholder="What do you want to say?"></input>
+            <button type="submit">Send</button>
         </form>
     )
 

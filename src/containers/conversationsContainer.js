@@ -1,5 +1,5 @@
 import React from 'react';
-import Conversation from '../components/Conversation.js'
+import Conversation from '../components/conversation.js'
 
 const populateConversations = (conversations, handleClick) => {
     console.log(conversations)

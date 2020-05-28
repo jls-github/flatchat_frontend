@@ -14,7 +14,8 @@ class Home extends Component {
         super(props)
         this.state = {
           conversations: [],
-          activeConversation: null
+          activeConversation: null,
+          error: false
         }
       }
     
@@ -27,6 +28,11 @@ class Home extends Component {
          })
       .then(res => res.json())
       .then(json => {
+
+        if (json.error) {
+          this.setState({error: true})
+        } else {
+
         this.setState({conversations: json})
         this.cable = actioncable.createConsumer('ws://localhost:3000/cable')
         this.conversationChannels = []
@@ -46,7 +52,7 @@ class Home extends Component {
         }
         )
         console.log(this.conversationChannels)
-      })
+      }})
 
         
 
@@ -125,9 +131,10 @@ class Home extends Component {
         })
       }
       render() {
-          const {conversations, activeConversation} = this.state
+          const {conversations, activeConversation, error} = this.state
         return(
             <Fragment>
+              {error ? this.props.history.push('/login') : null}
     
                 <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
                 {activeConversation ?
@@ -139,4 +146,4 @@ class Home extends Component {
     
 }
 
-export default AuthWrapper(Home)
+export default Home

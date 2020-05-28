@@ -9,6 +9,7 @@ const Signup = () => {
     const [lastName, setLastName] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [error, setError] = useState(false)
 
     const history = useHistory()
 
@@ -51,13 +52,18 @@ const Signup = () => {
         })
         .then(res => res.json())
         .then(json => {
+            if (json.error) {
+                setError(true)
+            } else {
             localStorage.setItem("token", json.jwt)
             setIsLoggedIn(true)
+            }
         })
     }
 
     return (
         <Fragment>
+            {error ? history.push('/error'):null}
             {isLoggedIn ? 
             history.push('/home')
             :

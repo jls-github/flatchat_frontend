@@ -14,6 +14,7 @@ code {
 
 .messageContainer {
   margin: 20px;
+  
 
 }
 
@@ -50,4 +51,38 @@ code {
 .button {
   background-color: #ee6e73;
   color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto 25%;
+}
+
+.participants {
+  margin: 10px;
+  padding: 10px;
+  text-align: right;
+  border: solid;
+  border-width: thin;
+  border-radius: 5px;
+}
+
+.msgView {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.msgInput {
+  margin: 10px;
+  padding: 10px;
+  width: 75%;
+}
+
+.banner {
+  margin: .5rem 0 2rem 0;
+  margin-left: 40px;
+}
+
+.smaller {
+  font-size: smaller;
 }

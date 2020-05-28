@@ -5,7 +5,7 @@ const Participant = (props) => {
     const {user} = props
     
     return(
-        <li>
+        <li className="participant_li">
             {user.username}
         </li>
     )

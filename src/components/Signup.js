@@ -88,11 +88,13 @@ const Signup = () => {
                         placeholder="Last Name"
                     />
                     <input
+                        type="password"
                         value={password}
                         onChange={e => handlePasswordChange(e)} 
                         placeholder="Password"
                     />
                     <input
+                        type="password"
                         value={passwordConfirmation}
                         onChange={e => handlePasswordConfirmationChange(e)} 
                         placeholder="Password"

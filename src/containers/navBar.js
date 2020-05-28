@@ -27,7 +27,7 @@ class NavBar extends Component {
 
         <ul id="slide-out" className="sidenav">
         <li onClick={(() => {localStorage.setItem("token", "")})}><Link to="login"><i className="material-icons">directions_run</i>Log Out</Link></li>
-          <li><Link to="home"><i className="material-icons">playlist_add</i>Add Conversation</Link></li>
+          {/* <li><Link to="home"><i className="material-icons">playlist_add</i>Add Conversation</Link></li> */}
           <li><div className="divider"></div></li>
           <ConversationsContainer conversations={conversations} handleClick={handleClick}/>
         </ul>

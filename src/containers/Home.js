@@ -6,6 +6,8 @@ import AuthWrapper from '../HOCs/AuthWrapper'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from '../constraints/index'
 
+const actioncable = require("actioncable")
+
 class Home extends Component {
 
     constructor(props) {
@@ -17,38 +19,76 @@ class Home extends Component {
       }
     
       componentDidMount = () => {
+
         fetch(`${API_ROOT}/conversations`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-        .then(res => res.json())
-        .then(json => this.setState({conversations: json}))
-        .then(json => {
-          this.state.conversations.map(convo=> {
-            return (
-                <ActionCableConsumer 
-                    key={convo.id}
-                    channel={{channel: 'MessagesChannel', conversation: convo.id}} 
-                    onReceived={this.handleReceivedMessage}
-                />
-            )})})}
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+         })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({conversations: json})
+        this.cable = actioncable.createConsumer('ws://localhost:3000/cable')
+        this.conversationChannels = []
+
+        json.forEach(conversation => {
+
+          this.conversationChannels[`${conversation.id}`] = this.cable.subscriptions.create({
+            channel: "MessagesChannel",
+            id: conversation.id
+          },{
+            connected: () => {
+              console.log("connected")
+            },
+            disconnected: () => {},
+            received: data => {this.handleReceivedMessage(data)}
+          })
+        }
+        )
+        console.log(this.conversationChannels)
+      })
+
+        
+
+
+        }
     
       handleClick = activeConversation => {
         this.setState({activeConversation: activeConversation})
+
+
       }
+
+      // componentDidUpdate() {
+      //   if(this.state.activeConversation){
+      //   this.cable = actioncable.createConsumer('ws://localhost:3000/cable')
+
+      //     this.conversationChannel = this.cable.subscriptions.create({
+      //       channel: "ConversationsChannel",
+      //       id: this.state.activeConversation.id
+      //     },{
+      //       connected: () => {
+      //         console.log("connected")
+      //       },
+      //       disconnected: () => {},
+      //       received: data => {console.log("receiving data")}
+      //     })
+      //   }
+      // }
     
       // handleReceivedConversation = res => {
       //   const { conversation } = res
       //   this.setState({conversations: [...this.state.conversations, conversation]})
       // }
     
-      handleReceivedMessage = res => {
-        console.log("Here I am", res)
-        const {message} = res
+      handleReceivedMessage = message => {
+
+        const {text, conversation_id} = message
+
+        console.log("Here I am", message)
         this.setState(prevState => {
           const conversations = [...prevState.conversations]
-          const convo = conversations.find(convo => convo.id === message.conversation_id)
+          const convo = conversations.find(convo => convo.id === conversation_id)
           let messageFound = false
           convo.messages.forEach(msg => {
             if (message.id === msg.id) {
@@ -63,31 +103,31 @@ class Home extends Component {
       }
     
       onAddMessage = (message) => {
-        fetch("http://localhost:3000/messages", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          },
-          body: JSON.stringify({
-            message: {
-              text: message,
-              conversation_id: this.state.activeConversation.id
-             } //hard coded - change with auth
-          })
+        // fetch("http://localhost:3000/messages", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     Accept: "application/json",
+        //     Authorization: `Bearer ${localStorage.getItem("token")}`
+        //   },
+        //   body: JSON.stringify({
+        //     message: {
+        //       text: message,
+        //       conversation_id: this.state.activeConversation.id
+        //      } 
+        //   })
+        // })
+
+        this.conversationChannels[this.state.activeConversation.id].send({
+          text: message,
+          conversation_id: this.state.activeConversation.id,
+          user_id: localStorage.getItem("token")
         })
       }
       render() {
           const {conversations, activeConversation} = this.state
         return(
             <Fragment>
-    
-                {/* <ActionCableConsumer 
-                    channel={{channel: 'ConversationsChannel'}} 
-                    onReceived={this.handleReceivedConversation} 
-                  /> */}
-                  <Cable conversations={conversations} handleReceivedMessage={this.handleReceivedMessage} />
     
                 <ConversationsContainer conversations={conversations} handleClick={this.handleClick}/>
                 {activeConversation ?

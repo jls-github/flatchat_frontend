@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from '../components/Message'
+import Message from '../components/message'
 import MessageForm from '../components/MessageForm'
 import ParticipantsContainer from './ParticipantsContainer'
 

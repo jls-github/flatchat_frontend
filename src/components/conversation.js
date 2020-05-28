@@ -8,7 +8,7 @@ const Conversation = (props) => {
     const { handleClick, conversation } = props
 
     return (
-        <li onClick={() => handleClick(conversation)}>{conversation.title}</li>
+        <li className="conversation_li" onClick={() => handleClick(conversation)}>{conversation.title}</li>
     )
 
 }

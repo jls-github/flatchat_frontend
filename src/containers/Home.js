@@ -6,6 +6,7 @@ import AuthWrapper from '../HOCs/AuthWrapper'
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from '../constraints/index'
 import NavBar from './navBar'
+import NoConversation from '../components/NoConversation'
 
 const actioncable = require("actioncable")
 
@@ -156,7 +157,7 @@ class Home extends Component {
               {error ? this.props.history.push('/login') : null}
                     {activeConversation ?
                     <MessageContainer activeConversation={activeConversation} onAddMessage={this.onAddMessage} />
-                : null}
+                : <NoConversation />}
             </Fragment>
         )
       }

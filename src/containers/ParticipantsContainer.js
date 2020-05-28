@@ -13,7 +13,7 @@ const ParticipantsContainer = props => {
 
     return(
         <div>
-            <h4>Conversation Participants</h4>
+            <h4 className="participants_header">Conversation Participants</h4>
             <ul>
                 {populateParticipants()}
             </ul>

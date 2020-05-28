@@ -24,7 +24,9 @@ code {
   margin: 5px;
   border-radius: 5px;
   padding-left: 5px;
-  background-color: lightblue
+  background-color: lightblue;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 
 .messageHeader {
@@ -51,6 +53,9 @@ code {
 .button {
   background-color: #ee6e73;
   color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
+  border: none;
 }
 
 .grid {
@@ -65,6 +70,8 @@ code {
   border: solid;
   border-width: thin;
   border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
 }
 
 .msgView {
@@ -80,9 +87,32 @@ code {
 
 .banner {
   margin: .5rem 0 2rem 0;
-  margin-left: 40px;
+  margin-left: 25%;
 }
 
 .smaller {
   font-size: smaller;
+}
+
+.login_container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.login {
+  margin: 10rem;
+  padding: 1rem;
+  border: solid;
+  border-radius: 20px;
+  width: 25rem;
+  display: inline-block;
+  background-color: #D4FAF8;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
+}
+
+.cardHeader {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

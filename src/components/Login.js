@@ -8,6 +8,7 @@ const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loggedIn, setLoggedIn] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -35,12 +36,17 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(json => {
+            if (json.error) {
+                setError(true)
+            } else {
             localStorage.setItem("token", json.jwt)
-            setLoggedIn(true)})
+            setLoggedIn(true)}
+        })
     }
 
     return (
         <Fragment>
+        {error ? history.push('/error'):null}
         {loggedIn ? 
             history.push('/home')
             :

@@ -1,54 +1,53 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import {Redirect} from 'react-router-dom'
+// import React, {Fragment, Component} from 'react';
 
-const AuthWrapper = (Component) => {
+// class AuthWrapper extends Component {
 
-    return function AuthWrapper2(props) {
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             authorized: false,
+//             pending: false
+//         }
+//     }
     
 
-        const [authorized, setAuthorized] = useState(false)
-        const [pending, setPending] = useState(true)
+//     isLoggedIn = () => {
+//         if (!this.state.pending && !this.state.authorized) {
+//             this.window.history.push("/login")
+//         } else if (!this.state.pending && this.state.authorized) {
+//             return (<div></div>)
+//         }
+//     }
 
+//     validateUser = () => {
+//         fetch('http://localhost:3000/current_user', {
+//             headers: {
+//                 Authorization: `Bearer ${localStorage.getItem("token")}`
+//             }
+//         })
+//         .then(res => {
+//             return res.json()})
+//         .then(json => {
+//             console.log(json)
+//             if (json.error) {
+//                 this.setState({authorized: false})
+//             } else {
+//                 this.setState({authorized: true, pending: false})
+//             }
+//         })
+//     }
 
-        const isLoggedIn = () => {
-            if (!pending && !authorized) {
-                props.history.push("/login")
-            } 
-            return authorized && !pending
-        }
+//     componentDidMount() {
+//         this.validateUser()
+//     }
 
-        const validateUser = () => {
-            fetch('http://localhost:3000/current_user', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            })
-            .then(res => {
-                return res.json()})
-            .then(json => {
-                console.log(json)
-                if (json.error) {
-                    setPending(false)
-                } else {
-                    setAuthorized(true)
-                    setPending(false)
-                }
-            })
-        }
+//     render() {
+//         console.log(this.props)
+//         return (
+//             <Fragment>
+//                 {this.isLoggedIn()}
+//             </Fragment>
+//     )}
+// }
 
-        useEffect(() => {
-                validateUser()
-            }, []
-        )
-
-        return (
-            <Fragment>
-                {authorized ? 
-                    <Component />
-                : null}
-            </Fragment>
-        )
-    }
-}
-
-export default AuthWrapper
+// export default AuthWrapper

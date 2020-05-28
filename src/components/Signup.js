@@ -95,7 +95,7 @@ const Signup = () => {
                         onChange={e => handlePasswordConfirmationChange(e)} 
                         placeholder="Password"
                     />
-                    <button type="submit">Sign Up!</button>
+                    <button type="submit" className="button">Sign Up!</button>
                 </form>
             </div>}
         </Fragment>

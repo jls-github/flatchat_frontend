@@ -23,8 +23,34 @@ code {
   border-width: thin;
   margin: 5px;
   border-radius: 5px;
-  background-color: lightblue;
-  padding: 10px;
+  padding-left: 5px;
+  background-color: lightblue
+}
+
+.messageHeader {
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+
+.messageText {
+  margin-left: 5px;
+  margin-top: 0px;
+  margin-bottom: 6px;
+}
+
+.messageName {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.messageDate {
+  font-size: 0.6rem;
+  font-weight: normal;
+}
+
+.button {
+  background-color: #ee6e73;
+  color: white;
 }
 
 .grid {
@@ -54,6 +80,7 @@ code {
 
 .banner {
   margin: .5rem 0 2rem 0;
+  margin-left: 40px;
 }
 
 .smaller {

@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react';
-import {useHistory, NavLink} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 const Login = () => {
 
@@ -64,9 +64,9 @@ const Login = () => {
                     onChange={e => handlePasswordChange(e)} 
                     placeholder="Password"
                 />
-                <button type="submit">Log in</button>
+                <button type="submit" className="button">Log in</button>
             </form>
-            <NavLink to="/signup">Sign Up</NavLink>
+            <Link to="/signup"><button className="button">Sign Up</button></Link>
         </div>}
         </Fragment>
     )

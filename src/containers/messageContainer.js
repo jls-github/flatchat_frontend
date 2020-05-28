@@ -1,6 +1,7 @@
 import React from 'react';
 import Message from '../components/Message'
 import MessageForm from '../components/MessageForm'
+import ParticipantsContainer from './ParticipantsContainer'
 
 const populateMessages = messages => {
     return messages.map(message => {
@@ -10,7 +11,7 @@ const populateMessages = messages => {
 
 const MessageContainer = (props) => {
 
-    const {title, description, messages} = props.activeConversation
+    const {title, description, messages, users} = props.activeConversation
 
     return (
         <div>
@@ -18,6 +19,7 @@ const MessageContainer = (props) => {
             <h3>{description}</h3>
             {populateMessages(messages)}
             <MessageForm onAddMessage={props.onAddMessage} />
+            <ParticipantsContainer users={users} />
         </div>
     )
 }

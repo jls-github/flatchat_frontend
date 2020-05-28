@@ -67,7 +67,8 @@ const Signup = () => {
             {isLoggedIn ? 
             history.push('/home')
             :
-            <div>
+            <div className="login_container">
+                <div className="login">
                 <h1>Sign up!</h1>
                 <form onSubmit={e => handleSubmit(e)}>
                     <input
@@ -97,6 +98,7 @@ const Signup = () => {
                     />
                     <button type="submit" className="button">Sign Up!</button>
                 </form>
+            </div>
             </div>}
         </Fragment>
     )

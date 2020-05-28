@@ -86,3 +86,19 @@ code {
 .smaller {
   font-size: smaller;
 }
+
+.login_container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.login {
+  margin: 10rem;
+  padding: 1rem;
+  border: solid;
+  border-radius: 20px;
+  width: 25rem;
+  display: inline-block;
+  background-color: #D4FAF8;
+}

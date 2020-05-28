@@ -50,23 +50,25 @@ const Login = () => {
         {loggedIn ? 
             history.push('/home')
             :
-        <div>
-            <h1>Log in!</h1>
-            <form onSubmit={e => handleSubmit(e)}>
-                <input
-                    value={username}
-                    onChange={e => handleUsernameChange(e)} 
-                    placeholder="Username"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={e => handlePasswordChange(e)} 
-                    placeholder="Password"
-                />
-                <button type="submit" className="button">Log in</button>
-            </form>
-            <Link to="/signup"><button className="button">Sign Up</button></Link>
+        <div className="login_container">
+            <div className="login">
+                <h1>Log in!</h1>
+                <form onSubmit={e => handleSubmit(e)}>
+                    <input
+                        value={username}
+                        onChange={e => handleUsernameChange(e)} 
+                        placeholder="Username"
+                    />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={e => handlePasswordChange(e)} 
+                        placeholder="Password"
+                    />
+                    <button type="submit" className="button">Log in</button>
+                </form>
+                <Link to="/signup"><button className="button">Sign Up</button></Link>
+            </div>
         </div>}
         </Fragment>
     )

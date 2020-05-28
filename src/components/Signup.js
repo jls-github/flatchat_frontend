@@ -10,7 +10,7 @@ const Signup = () => {
         setUsername(e.target.value)
     }
 
-    const handlePasswordConfirmationhange = (e) => {
+    const handlePasswordConfirmationChange = (e) => {
         setPassword(e.target.value)
     }
 

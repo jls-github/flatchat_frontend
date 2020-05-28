@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import Home from './containers/Home'
 import Login from './components/Login'
 import {BrowserRouter as Router, Route } from 'react-router-dom';
+// import AuthWrapper from './HOCs/AuthWrapper'
 
 
 
-class App extends Component {
-
-  render() {
+const App = () =>  {
     return (
           <Router>
             <div>
 
-              <Route path='/' component={Login} />
-              <Route path='/home' component={Home} />
+              <Route exact path='/' component={Login} />
+              <Route path='/home' component={Home}/>
             </div>
           </Router>
       );
-  }
 }
 
 export default App;

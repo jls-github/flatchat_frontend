@@ -3,7 +3,9 @@ import React from 'react'
 const Message = (props) => {
 
     const formatMessageDate = (date) => {
-        let dateArray = date.split(" ")
+
+
+        let dateArray = date.toString().split(" ")
         let timeArray = dateArray[4].split(":")
         let ampm
         if (parseInt(timeArray[0]) === 12) {
@@ -21,8 +23,8 @@ const Message = (props) => {
     const {message, user} = props
     return(
         <div className="message">
-            <p>{user.username}</p>
-            <p>{message.text}</p>
+            <p className="messageHeader"><span className="messageName">{user.username}</span>  <span className="messageDate">{formatMessageDate(new Date(message.created_at))}</span></p>
+            <p className="messageText">{message.text}</p>
         </div>
     )
 }

@@ -14,13 +14,23 @@ const MessageContainer = (props) => {
     const {title, description, messages, users} = props.activeConversation
 
     return (
-        <div className="messageContainer">
-            <h1>{title}</h1>
-            <h3>{description}</h3>
-            {populateMessages(messages, users)}
-            <MessageForm onAddMessage={props.onAddMessage} />
-            <ParticipantsContainer users={users} />
+        <div>
+            <h3 className="banner">{title} : <span className="smaller">{description}</span></h3>
+            <div className="messageContainer grid">
+                <div className="msgView">
+                    {populateMessages(messages, users)}
+                    
+                </div>
+                <div className="participants">
+                    <ParticipantsContainer users={users} />
+                </div>
+            </div>
+            <div className="msgInput">
+                <MessageForm onAddMessage={props.onAddMessage} />
+            </div>
         </div>
+
+        
     )
 }
 

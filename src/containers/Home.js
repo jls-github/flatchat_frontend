@@ -21,7 +21,6 @@ class Home extends Component {
       }
     
       componentDidMount = () => {
-
         fetch(`${API_ROOT}/conversations`, {
           headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -29,6 +28,7 @@ class Home extends Component {
          })
       .then(res => res.json())
       .then(json => {
+        console.log('i did mount')
 
         if (json.error) {
           this.setState({error: true})
@@ -144,6 +144,7 @@ class Home extends Component {
       }
       render() {
           const {conversations, activeConversation, error} = this.state
+          // console.log(conversations)
         return(
             <Fragment>
                 <NavBar 

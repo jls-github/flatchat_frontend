@@ -37,7 +37,7 @@ A realtime chat application. This repo contains our React frontend.
 ## Installation/Deployment
 
 - Local installation
-    - Grab a copy of our [backend server](https://github.com/strangrjrjr/flatchat_backend). Follow the instructions there.
+    - Grab a copy of our [backend server](https://github.com/jls-github/flatchat_backend). Follow the instructions there.
     - Clone/download this project's main branch.
     - `cd` into the main directory and run `npm install && npm start`
 - Deployed installation
